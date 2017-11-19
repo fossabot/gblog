@@ -1,0 +1,11 @@
+{
+	"devMode": "false",
+	"port": {
+		"dev": 3000,
+		"prod": 8080
+	},
+	"site": {
+		"title": ""
+	},
+	"secret": "CHANGE THIS"
+}

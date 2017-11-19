@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+	{% include '_partials/head.njk' %}
+	<body>
+		{% include '_partials/header.njk' %}
+		{% block content %}
+		{% endblock %}
+		{% include '_partials/scripts.njk' %}
+		{% block customScripts %}
+		{% endblock %}
+	</body>
+</html>

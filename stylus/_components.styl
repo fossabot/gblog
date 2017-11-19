@@ -1,0 +1,35 @@
+header
+	background: base00
+	color: base07
+	width: 100%
+	height: header-height
+	line-height: header-height
+	display: flex
+	justify-content: space-between
+	padding: 0 1rem
+	span.site-title
+		flex-grow: 1
+		text-align: center
+	span.editButton,
+	span.saveButton
+		&:hover
+			text-decoration: underline
+			cursor: pointer
+
+div.post-wrapper
+	height: 100% - header-height
+	display: flex
+	justify-content: center
+	textarea, div.post-content
+		height: 100%
+		flex-basis: 50%
+		vertical-align: middle
+		padding: 1rem
+	textarea
+		border: none
+		overflow: auto
+		resize: none
+		background: base01
+		color: base07
+		font-family: monospace
+		font-size: 120%

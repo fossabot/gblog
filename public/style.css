@@ -1,0 +1,77 @@
+@charset "utf-8";
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Fira Sans", sans-serif;
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background: #f2f0ec;
+  color: #2d2d2d;
+}
+.hide {
+  display: none !important;
+}
+a:link,
+a:visited,
+a:link:active,
+a:visited:active {
+  color: inherit;
+  text-decoration: none;
+}
+a:link:hover,
+a:visited:hover {
+  text-decoration: underline;
+}
+header {
+  background: #2d2d2d;
+  color: #f2f0ec;
+  width: 100%;
+  height: 3rem;
+  line-height: 3rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+header span.site-title {
+  flex-grow: 1;
+  text-align: center;
+}
+header span.editButton:hover,
+header span.saveButton:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+div.post-wrapper {
+  height: 97%;
+  display: flex;
+  justify-content: center;
+}
+div.post-wrapper textarea,
+div.post-wrapper div.post-content {
+  height: 100%;
+  flex-basis: 50%;
+  vertical-align: middle;
+  padding: 1rem;
+}
+div.post-wrapper textarea {
+  border: none;
+  overflow: auto;
+  resize: none;
+  background: #393939;
+  color: #f2f0ec;
+  font-family: monospace;
+  font-size: 120%;
+}

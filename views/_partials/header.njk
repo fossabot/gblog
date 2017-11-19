@@ -1,0 +1,17 @@
+<header>
+	<div class="authentication">
+		{% if user %}
+			<a href="/user/logout">Logout</a>
+		{% else %}
+			<a href="/user/login">Login</a>
+			<a href="/user/register">Register</a>
+		{% endif %}
+	</div>
+	<span class="site-title">
+		<a href="/">{{ site.title }}</a>
+	</span>
+	{% if user %}
+		<span class="editButton">Edit</span>
+		<span class="saveButton hide">Save</span>
+	{% endif %}
+</header>

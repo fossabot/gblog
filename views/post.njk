@@ -1,0 +1,12 @@
+{% extends '_skeletons/default.njk' %}
+
+{% block content %}
+	<div class="post-wrapper">
+		<textarea class="hide">{{ post.md }}</textarea>
+		<div class="post-content">{{ post.html }}</div>
+	</div>
+{% endblock %}
+
+{% block customScripts %}
+	<script src="/post.js" type="text/javascript"></script>
+{% endblock %}

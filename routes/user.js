@@ -15,7 +15,8 @@ module.exports = (config) => {
 	});
 
 	router.post('/login', passport.authenticate('local', {
-		failureRedirect: '/user/login'
+		successReturnToOrRedirect: '/',	// Redirect to their original page or fallback to the root
+		failureRedirect: '/user/login'	// Send them back to the login page if it fails
 	}), (req, res) => {
 		res.redirect('/');
 	});

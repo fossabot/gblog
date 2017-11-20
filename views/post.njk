@@ -1,9 +1,15 @@
 {% extends '_skeletons/default.njk' %}
 
 {% block content %}
+	<span class="hide" id="post-id">{{ post._id }}</span>
 	<div class="post-wrapper">
-		<textarea class="hide">{{ post.md }}</textarea>
-		<div class="post-content">{{ post.html }}</div>
+		{% if newPost %}
+			<textarea></textarea>
+			<div class="post-content"></div>
+		{% else %}
+			<textarea class="hide">{{ post.content }}</textarea>
+			<div class="post-content"></div>
+		{% endif %}
 	</div>
 {% endblock %}
 

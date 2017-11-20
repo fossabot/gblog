@@ -43,7 +43,10 @@ header {
   line-height: 3rem;
   display: flex;
   justify-content: space-between;
-  padding: 0 1rem;
+}
+header span,
+header a {
+  margin: 0 0.5rem;
 }
 header span.site-title {
   flex-grow: 1;

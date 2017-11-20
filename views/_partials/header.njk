@@ -11,7 +11,16 @@
 		<a href="/">{{ site.title }}</a>
 	</span>
 	{% if user %}
-		<span class="editButton">Edit</span>
-		<span class="saveButton hide">Save</span>
+		{% if newPost %}
+			<a href="/post/new" class="newButton hide">New Post</a>
+			<span class="editButton hide">Edit</span>
+			<span class="saveButton">Save</span>
+			<span class="cancelButton">Cancel</span>
+		{% else %}
+			<a href="/post/new" class="newButton">New Post</a>
+			<span class="editButton">Edit</span>
+			<span class="saveButton hide">Save</span>
+			<span class="cancelButton hide">Cancel</span>
+		{% endif %}
 	{% endif %}
 </header>

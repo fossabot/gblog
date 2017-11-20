@@ -10,6 +10,36 @@ module.exports = (config) => {
 	// Turn on our router
 	const router = express.Router();
 
+	// Shortcut for ensuring login
+	const mustBeLoggedIn = require('connect-ensure-login').ensureLoggedIn('/user/login');
+
+	// New post
+	router.get(/^\/new$/, mustBeLoggedIn, (req, res) => {
+		res.render('post.njk', {
+			site: config.site,
+			user: req.user && req.user.username ? req.user.username : null,
+			newPost: true
+		});
+	});
+
+	router.post(/^\/new$/, mustBeLoggedIn, (req, res) => {
+		db.posts.findOne({ slug: req.body.slug }, (err, doc) => {
+			if (err) console.error(err);
+			if (doc) {
+				res.send({ message: 'slug-used' });
+			} else {
+				req.body.author = req.user.username;
+				db.posts.insert(req.body, (err) => {
+					if (err) {
+						res.send({ message: 'error-insert' });
+					} else {
+						res.send({ message: 'success' });
+					}
+				});
+			}
+		});
+	});
+
 	router.get('/:postSlug', (req, res) => {
 		db.posts.findOne({ slug: req.params.postSlug }, (err, doc) => {
 			if (err) {
@@ -28,29 +58,34 @@ module.exports = (config) => {
 				res.render('post.njk', {
 					site: config.site,
 					user: req.user && req.user.username ? req.user.username : null,
-					post: {
-						md: doc.content,
-						html: marked(doc.content || '')
-					}
+					post: doc
 				});
 			}
 		});
 	});
 
-	router.post('/:postSlug', (req, res) => {
-		console.log(JSON.stringify(req.body, null, 2));
+	router.put('/:postSlug', mustBeLoggedIn, (req, res) => {
+		console.log(req.body);
 		db.posts.findAndModify({
 			query: {
-				slug: req.params.postSlug
+				_id: mongojs.ObjectId(req.body._id)
 			},
 			update: {
 				$set: {
-					content: req.body.newContent
+					title: req.body.title,
+					slug: req.body.slug,
+					content: req.body.content
 				}
 			},
 			new: true
 		}, (err, doc, lastErrorObject) => {
-			if (err) console.error(err);
+			if (err) {
+				console.error(err);
+				res.send({ message: 'error-update' });
+			} else {
+				console.log(doc);
+				res.send({ message: 'succes' });
+			}
 		});
 	});
 

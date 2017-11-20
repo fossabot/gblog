@@ -12,15 +12,16 @@
 	</span>
 	{% if user %}
 		{% if newPost %}
-			<a href="/post/new" class="newButton hide">New Post</a>
-			<span class="editButton hide">Edit</span>
 			<span class="saveButton">Save</span>
 			<span class="cancelButton">Cancel</span>
-		{% else %}
+		{% elif post %}
 			<a href="/post/new" class="newButton">New Post</a>
 			<span class="editButton">Edit</span>
 			<span class="saveButton hide">Save</span>
 			<span class="cancelButton hide">Cancel</span>
+			<span class="deleteButton">Delete</span>
+		{% else %}
+			<a href="/post/new" class="newButton">New Post</a>
 		{% endif %}
 	{% endif %}
 </header>

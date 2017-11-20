@@ -1,14 +1,21 @@
 {% extends '_skeletons/default.njk' %}
 
 {% block content %}
-	<h1>Account Creation</h1>
-	<form action="/user/register" onsubmit="return validateForm()" method="post">
-		<label for="username">Username</label>
-		<input type="text" name="username" required />
-		<label for="password">Password</label>
-		<input type="password" name="password" required />
-		<label for="password-check">Enter password again</label>
-		<input type="password" name="password-check" required />
-		<input type="submit" value="Register" />
-	</form>
+	<section>
+		{% if error %}
+			<p class="error">{{ error }}</p>
+		{% endif %}
+		<h1>Account Creation</h1>
+		<form action="/user/register" onsubmit="return validateForm()" method="post">
+			<label for="username">Username</label>
+			<input type="text" name="username" required />
+			<label for="password">Password</label>
+			<input type="password" name="password" required />
+			<label for="password-check">Enter password again</label>
+			<input type="password" name="password-check" required />
+			<label for="invite-code">Invite Code</label>
+			<input type="text" name="invite" required />
+			<input type="submit" value="Register" />
+		</form>
+	</section>
 {% endblock %}

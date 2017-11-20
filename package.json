@@ -33,16 +33,16 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
-    "marked": "^0.3.6",
     "mongojs": "^2.4.1",
     "nunjucks": "^3.0.1",
+    "nunjucks-date": "^1.2.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "stylus": "^0.54.5"
   },
-	"nodemonConfig": {
-		"ignore": [
-			"public/*"
-		]
-	}
+  "nodemonConfig": {
+    "ignore": [
+      "public/*"
+    ]
+  }
 }

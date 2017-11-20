@@ -1,0 +1,22 @@
+{% extends '_skeletons/default.njk' %}
+
+{% block content %}
+	<section>
+		<h1>Administrative Functions</h1>
+		<h2>Generate invite code</h2>
+		<p>Press the button below to generate a new invite code that can then be given to someone to allow them to register an account.</p>
+		<input type="button" name="invite-generator" value="Generate Code" />
+		<p class="invite-codes">
+			{% if inviteCodes %}
+				<strong>Invite Codes</strong><br />
+				{% for invite in inviteCodes %}
+					{{ invite.code }}<br />
+				{% endfor %}
+			{% endif %}
+		</p>
+	</section>
+{% endblock %}
+
+{% block customScripts %}
+	<script src="/admin.js" type="text/javascript"></script>
+{% endblock %}

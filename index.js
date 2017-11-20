@@ -1,12 +1,13 @@
 // Required modules
-const express		= require('express');
-const nunjucks	= require('nunjucks');
-const stylus		= require('stylus');
-const path			= require('path');
-const passport	= require('passport');
-const Strategy	= require('passport-local').Strategy;
-const users			= require('./modules/users.js');
-const bcrypt		= require('bcrypt-nodejs');
+const express				= require('express');
+const nunjucks			= require('nunjucks');
+const nunjucksDate	= require('nunjucks-date');
+const stylus				= require('stylus');
+const path					= require('path');
+const passport			= require('passport');
+const Strategy			= require('passport-local').Strategy;
+const users					= require('./modules/users.js');
+const bcrypt				= require('bcrypt-nodejs');
 
 // Turn on our app
 const app = express();
@@ -23,11 +24,13 @@ app.use(stylus.middleware({
 }));
 
 // Nunjucks
-nunjucks.configure('views', {
+const env = nunjucks.configure('views', {
 	autoescape: false,
 	noCache: config.devMode,
 	express: app
 });
+nunjucksDate.setDefaultFormat('MMMM Do YYYY');
+nunjucksDate.install(env);
 
 // Passport
 passport.use(new Strategy(

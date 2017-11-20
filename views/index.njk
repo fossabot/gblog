@@ -1,12 +1,18 @@
 {% extends '_skeletons/default.njk' %}
 
 {% block content %}
-	<h1>Posts</h1>
-	<ul>
+	<section>
+		<h1>Posts</h1>
 		{% for post in posts %}
-			<li>
-				<a href="/post/{{ post.slug }}">{{ post.title }}</a>
-			</li>
+			<p>
+				<strong>
+					<a href="/post/{{ post.slug }}">{{ post.title }}</a>
+				</strong>
+				<br />
+				<em>By: </em><span>{{ post.author }}</span>
+				<br />
+				<em>On: </em><span>{{ post.date | date }}</span>
+			</p>
 		{% endfor %}
-	</ul>
+	</section>
 {% endblock %}

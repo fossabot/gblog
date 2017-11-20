@@ -1,7 +1,6 @@
 module.exports = (config) => {
 	// Pull in modules
 	const express	= require('express');
-	const marked	= require('marked');
 	const mongojs	= require('mongojs');
 
 	// Connect to the database
@@ -65,7 +64,6 @@ module.exports = (config) => {
 	});
 
 	router.put('/:postSlug', mustBeLoggedIn, (req, res) => {
-		console.log(req.body);
 		db.posts.findAndModify({
 			query: {
 				_id: mongojs.ObjectId(req.body._id)
@@ -83,8 +81,19 @@ module.exports = (config) => {
 				console.error(err);
 				res.send({ message: 'error-update' });
 			} else {
-				console.log(doc);
 				res.send({ message: 'succes' });
+			}
+		});
+	});
+
+	router.delete('/:postSlug', mustBeLoggedIn, (req, res) => {
+		db.posts.remove({
+			slug: req.params.postSlug
+		}, (err) => {
+			if (err) {
+				res.send({ message: 'error-delete' });
+			} else {
+				res.send({ message: 'success' });
 			}
 		});
 	});

@@ -5,7 +5,8 @@ module.exports = (config) => {
 	const router = express.Router();
 
 	router.get('/', (req, res) => {
-		db.posts.find((err, docs) => {
+		// Find all the posts and sort them by date in ascending order
+		db.posts.find().sort({ date: -1 }, (err, docs) => {
 			if (err) console.error(err);
 			res.render('index.njk', {
 				site: config.site,

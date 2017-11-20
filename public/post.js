@@ -9,6 +9,7 @@ const main = () => {
 	const editButton = document.querySelector('header span.editButton');
 	const saveButton = document.querySelector('header span.saveButton');
 	const cancelButton = document.querySelector('header span.cancelButton');
+	const deleteButton = document.querySelector('header span.deleteButton');
 	const postID = document.querySelector('span#post-id') ? document.querySelector('#post-id').innerHTML : null;
 
 	// Save the original post content in case user cancels edits
@@ -42,12 +43,12 @@ const main = () => {
 					title: displayWindow.querySelector('h1:first-of-type').innerHTML,
 					slug: slugify(displayWindow.querySelector('h1:first-of-type').innerHTML),
 					content: editWindow.value,
-					date: Date.now()
+					date: new Date()
 				};
 				saveButton.innerHTML = 'Saving...';
 				sendRequest('POST', post, () => {
 					// Redirect the user to the new post
-					window.location = window.location.hostname + '/post/' + post.slug;
+					window.location = window.location.origin + '/post/' + post.slug;
 				});
 			} else {
 				const data = {
@@ -67,9 +68,25 @@ const main = () => {
 
 	if (cancelButton) {
 		cancelButton.addEventListener('click', () => {
-			changeToState.view();
-			editWindow.value = originalContent;
-			renderContent();
+			if (window.location.pathname === '/post/new') {
+				// If they're cancelling out of making a new post, send them home
+				window.location = window.location.origin;
+			} else {
+				// Else just reset the state and what-not
+				changeToState.view();
+				editWindow.value = originalContent;
+				renderContent();
+			}
+		});
+	}
+
+	if (deleteButton) {
+		deleteButton.addEventListener('click', () => {
+			deleteButton.innerHTML = 'Deleting...';
+			sendRequest('DELETE', {}, () => {
+				// Send the user home cause this post is gone, baby!
+				window.location = window.location.origin;
+			});
 		});
 	}
 
@@ -82,11 +99,7 @@ const main = () => {
 		// If a callback function is passed in, we'll execute it once the request
 		// has completed
 		if (callback) {
-			request.onreadystatechange = () => {
-				if (this.readyState === 4 && this.status === 200) {
-					callback();
-				}
-			};
+			request.onload = callback;
 		};
 	};
 

@@ -1,11 +1,11 @@
 module.exports = (config) => {
 	// Pull in modules
-	const express	= require('express');
-	const mongojs	= require('mongojs');
-	const marked	= require('marked');
+	const express = require('express');
+	const mongojs = require('mongojs');
+	const marked = require('marked');
 
 	// Connect to the database
-	const db = mongojs('gblog');
+	const db = mongojs( config.database.url, [ config.database.collection ] );
 
 	// Turn on our router
 	const router = express.Router();

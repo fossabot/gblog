@@ -1,9 +1,12 @@
 // Needed modules
-const mongojs	= require('mongojs');
-const bcrypt	= require('bcrypt-nodejs');
+const mongojs = require('mongojs');
+const bcrypt = require('bcrypt-nodejs');
+
+// Get out configs
+const config = require('../config.json');
 
 // Get our database
-const db = mongojs('gblog');
+const db = mongojs( config.database.url, [ config.database.collection ] );
 
 module.exports = {
 	findById: (id, callback) => {

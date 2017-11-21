@@ -1,7 +1,7 @@
 module.exports = (config) => {
 	const express = require('express');
-	const mongojs	= require('mongojs');
-	const db = mongojs('gblog');
+	const mongojs = require('mongojs');
+	const db = mongojs( config.database.url, [ config.database.collection ] );
 	const router = express.Router();
 
 	router.get('/', (req, res) => {

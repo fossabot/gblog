@@ -8,4 +8,8 @@
 		"prod": 8080
 	},
 	"devMode": "false"
+	"database": {
+		"url": "localhost",
+		"collection": "gblog"
+	}
 }

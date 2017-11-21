@@ -2,6 +2,7 @@
 	<div class="authentication">
 		{% if user %}
 			<a href="/user/logout">Logout</a>
+			<a href="/user/admin">Admin</a>
 		{% else %}
 			<a href="/user/login">Login</a>
 			<a href="/user/register">Register</a>
@@ -16,10 +17,12 @@
 			<span class="cancelButton">Cancel</span>
 		{% elif post %}
 			<a href="/post/new" class="newButton">New Post</a>
-			<span class="editButton">Edit</span>
-			<span class="saveButton hide">Save</span>
-			<span class="cancelButton hide">Cancel</span>
-			<span class="deleteButton">Delete</span>
+			{% if user === post.author %}
+				<span class="editButton">Edit</span>
+				<span class="saveButton hide">Save</span>
+				<span class="cancelButton hide">Cancel</span>
+				<span class="deleteButton">Delete</span>
+			{% endif %}
 		{% else %}
 			<a href="/post/new" class="newButton">New Post</a>
 		{% endif %}

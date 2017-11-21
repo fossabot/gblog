@@ -33,6 +33,8 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "highlight.js": "^9.12.0",
+    "marked": "^0.3.6",
     "mongojs": "^2.4.1",
     "nunjucks": "^3.0.1",
     "nunjucks-date": "^1.2.0",

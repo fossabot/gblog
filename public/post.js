@@ -1,4 +1,5 @@
 /* global marked */
+/* global hljs */
 /* global XMLHttpRequest */
 
 // Our main function
@@ -106,7 +107,12 @@ const main = () => {
 	// Our slug generator function
 	const slugify = (string) => string.toLowerCase().replace(/[^a-z0-9 ]/g, '').replace(/ /g, '-');
 
-	// Our render function
+	// Marked setup and rendering
+	marked.setOptions({
+		highlight: (code) => {
+			return hljs.highlightAuto(code).value;
+		}
+	});
 	const renderContent = () => {
 		displayWindow.innerHTML = marked(editWindow.value);
 	};

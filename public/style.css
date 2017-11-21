@@ -36,6 +36,14 @@ a:link:hover,
 a:visited:hover {
   text-decoration: underline;
 }
+p.invite-codes span.x-box {
+  color: #f2777a;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+p.invite-codes span.x-box:hover {
+  cursor: pointer;
+}
 form {
   display: flex;
   flex-direction: column;
@@ -87,7 +95,7 @@ div.post-wrapper {
 div.post-wrapper textarea,
 div.post-wrapper div.post-content {
   height: 100%;
-  flex-basis: 50%;
+  flex: 0 0 50%;
   vertical-align: middle;
   padding: 1rem;
 }
@@ -99,4 +107,14 @@ div.post-wrapper textarea {
   color: #f2f0ec;
   font-family: monospace;
   font-size: 120%;
+}
+div.post-wrapper div.post-content {
+  overflow: hidden;
+}
+div.post-wrapper div.post-content pre {
+  max-width: 100%;
+  background: #2d2d2d;
+  color: #f2f0ec;
+  padding: 1rem;
+  overflow: auto;
 }

@@ -2,6 +2,7 @@ module.exports = (config) => {
 	// Pull in modules
 	const express	= require('express');
 	const mongojs	= require('mongojs');
+	const marked	= require('marked');
 
 	// Connect to the database
 	const db = mongojs('gblog');
@@ -54,6 +55,10 @@ module.exports = (config) => {
 					status: 404
 				});
 			} else {
+				doc.content = {
+					md: doc.content,
+					html: marked(doc.content)
+				};
 				res.render('post.njk', {
 					site: config.site,
 					user: req.user && req.user.username ? req.user.username : null,
@@ -66,7 +71,8 @@ module.exports = (config) => {
 	router.put('/:postSlug', mustBeLoggedIn, (req, res) => {
 		db.posts.findAndModify({
 			query: {
-				_id: mongojs.ObjectId(req.body._id)
+				_id: mongojs.ObjectId(req.body._id),
+				author: req.user.username
 			},
 			update: {
 				$set: {
@@ -88,7 +94,8 @@ module.exports = (config) => {
 
 	router.delete('/:postSlug', mustBeLoggedIn, (req, res) => {
 		db.posts.remove({
-			slug: req.params.postSlug
+			slug: req.params.postSlug,
+			author: req.user.username
 		}, (err) => {
 			if (err) {
 				res.send({ message: 'error-delete' });

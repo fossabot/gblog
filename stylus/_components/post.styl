@@ -4,7 +4,7 @@ div.post-wrapper
 	justify-content: center
 	textarea, div.post-content
 		height: 100%
-		flex-basis: 50%
+		flex: 0 0 50%
 		vertical-align: middle
 		padding: 1rem
 	textarea
@@ -15,3 +15,11 @@ div.post-wrapper
 		color: base07
 		font-family: monospace
 		font-size: 120%
+	div.post-content
+		overflow: hidden
+		pre
+			max-width: 100%
+			background: base00
+			color: base07
+			padding: 1rem
+			overflow: auto

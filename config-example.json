@@ -10,6 +10,6 @@
 	"devMode": "false"
 	"database": {
 		"url": "localhost",
-		"collection": "gblog"
+		"name": "gblog"
 	}
 }

@@ -6,6 +6,12 @@ module.exports = (config) => {
 	const router = express.Router();
 	const db = mongojs('gblog');
 
+	// Used to determine if invite code is needed
+	let firstRun = true;
+	db.users.findOne((err, doc) => {
+		if (!err && doc) firstRun = false;
+	});
+
 	// Shortcut for ensuring login
 	const mustBeLoggedIn = require('connect-ensure-login').ensureLoggedIn('/user/login');
 
@@ -40,35 +46,56 @@ module.exports = (config) => {
 	});
 
 	router.post('/register', (req, res) => {
-		db.inviteCodes.findOne({
-			code: req.body.invite
-		}, (err, doc) => {
-			if (err) {
-				res.render('error.njk', {
-					site: config.site,
-					user: req.user && req.user.username ? req.user.username : null,
-					status: 500
-				});
-			} else if (!doc) {
-				res.render('register.njk', {
-					site: config.site,
-					error: 'Invalid invite code'
-				});
-			} else {
-				users.register(req.body.username, req.body.password, (err, user) => {
-					if (err) {
-						res.render('register.njk', {
-							site: config.site,
-							user: req.user,
-							error: err
-						});
-					} else {
-						db.inviteCodes.remove({ code: req.body.invite });
-						res.redirect('/user/login');
-					}
-				});
-			}
-		});
+		if (req.body.password !== req.body.passwordCheck) {
+			res.render('register.njk', {
+				site: config.site,
+				error: 'Passwords did not match'
+			});
+		} else if (firstRun) {
+			firstRun = false;
+			users.register(req.body.username, req.body.password, (err, user) => {
+				if (err) {
+					res.render('register.njk', {
+						site: config.site,
+						user: req.user,
+						error: err
+					});
+				} else {
+					db.inviteCodes.remove({ code: req.body.invite });
+					res.redirect('/user/login');
+				}
+			});
+		} else {
+			db.inviteCodes.findOne({
+				code: req.body.invite
+			}, (err, doc) => {
+				if (err) {
+					res.render('error.njk', {
+						site: config.site,
+						user: req.user && req.user.username ? req.user.username : null,
+						status: 500
+					});
+				} else if (!doc) {
+					res.render('register.njk', {
+						site: config.site,
+						error: 'Invalid invite code'
+					});
+				} else {
+					users.register(req.body.username, req.body.password, (err, user) => {
+						if (err) {
+							res.render('register.njk', {
+								site: config.site,
+								user: req.user,
+								error: err
+							});
+						} else {
+							db.inviteCodes.remove({ code: req.body.invite });
+							res.redirect('/user/login');
+						}
+					});
+				}
+			});
+		}
 	});
 
 	router.get('/admin', mustBeLoggedIn, (req, res) => {

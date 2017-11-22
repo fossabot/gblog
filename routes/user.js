@@ -1,10 +1,10 @@
 module.exports = (config) => {
-	const express		= require('express');
-	const passport	= require('passport');
-	const users			= require('../modules/users.js');
-	const mongojs		= require('mongojs');
+	const express = require('express');
+	const passport = require('passport');
+	const users = require('../modules/users.js');
+	const mongojs = require('mongojs');
 	const router = express.Router();
-	const db = mongojs('gblog');
+	const db = mongojs( config.database.url, [ config.database.name ] );
 
 	// Used to determine if invite code is needed
 	let firstRun = true;

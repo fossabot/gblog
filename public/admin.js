@@ -20,6 +20,7 @@ const main = () => {
 			}
 		};
 	});
+};
 
 // Do this when the page is done loading
 const ready = (fn) => {

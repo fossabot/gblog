@@ -4,7 +4,7 @@ module.exports = (config) => {
 	const users = require('../modules/users.js');
 	const mongojs = require('mongojs');
 	const router = express.Router();
-	const db = mongojs( config.database.url, [ config.database.collection ] );
+	const db = mongojs( config.database.url, [ config.database.name ] );
 
 	// Shortcut for ensuring login
 	const mustBeLoggedIn = require('connect-ensure-login').ensureLoggedIn('/user/login');

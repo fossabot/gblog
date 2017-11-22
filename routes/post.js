@@ -5,7 +5,7 @@ module.exports = (config) => {
 	const marked = require('marked');
 
 	// Connect to the database
-	const db = mongojs( config.database.url, [ config.database.collection ] );
+	const db = mongojs( config.database.url, [ config.database.name ] );
 
 	// Turn on our router
 	const router = express.Router();

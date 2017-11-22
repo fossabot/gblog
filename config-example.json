@@ -7,7 +7,7 @@
 		"dev": 3000,
 		"prod": 8080
 	},
-	"devMode": "false"
+	"devMode": "false",
 	"database": {
 		"url": "localhost",
 		"name": "gblog"

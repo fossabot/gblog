@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt-nodejs');
 const config = require('../config.json');
 
 // Get our database
-const db = mongojs( config.database.url, [ config.database.name ] );
+const db = mongojs(config.database);
 
 module.exports = {
 	findById: (id, callback) => {

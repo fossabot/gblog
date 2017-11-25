@@ -4,7 +4,7 @@ module.exports = (config) => {
 	const users = require('../modules/users.js');
 	const mongojs = require('mongojs');
 	const router = express.Router();
-	const db = mongojs( config.database.url, [ config.database.name ] );
+	const db = mongojs(config.database);
 
 	// Used to determine if invite code is needed
 	let firstRun = true;

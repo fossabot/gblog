@@ -83,4 +83,7 @@ app.use('/post', routes.post);
 app.use('/user', routes.user);
 
 // Listen
-app.listen(3000);
+const port = config.devMode ? config.port.dev : config.port.prod;
+app.listen(port, () => {
+	console.log('gBlog listening on port ' + port);
+});

@@ -14,9 +14,24 @@
 {% endblock %}
 
 {% block customScripts %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js" integrity="sha256-mJAzKDq6kSoKqZKnA6UNLtPaIj8zT2mFnWu/GSouhgQ=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
 	{% if user === post.author or newPost %}
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js" integrity="sha256-mJAzKDq6kSoKqZKnA6UNLtPaIj8zT2mFnWu/GSouhgQ=" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
 		<script src="/post.js" type="text/javascript"></script>
+	{% else %}
+		<script>
+			// Marked setup and rendering
+			marked.setOptions({
+				highlight: (code) => {
+					return hljs.highlightAuto(code).value;
+				}
+			});
+			const renderContent = () => {
+				const editWindow = document.querySelector('div.post-wrapper textarea');
+				const displayWindow = document.querySelector('div.post-wrapper div.post-content');
+				displayWindow.innerHTML = marked(editWindow.value);
+			};
+			renderContent();
+		</script>
 	{% endif %}
 {% endblock %}

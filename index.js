@@ -8,6 +8,9 @@ const passport			= require('passport');
 const Strategy			= require('passport-local').Strategy;
 const users					= require('./modules/users.js');
 const bcrypt				= require('bcrypt-nodejs');
+const session				= require('express-session');
+const mongojs				= require('mongojs');
+const MongoStore		= require('connect-mongo')(session);
 
 // Turn on our app
 const app = express();
@@ -59,10 +62,13 @@ passport.deserializeUser((id, callback) => {
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('body-parser').json());
-app.use(require('express-session')({
+app.use(session({
 	secret: config.secret,
 	resave: false,
-	saveUninitialized: false
+	saveUninitialized: false,
+	store: new MongoStore({
+		url: 'mongodb://localhost/' + config.database
+	})
 }));
 
 // Turn on passport
